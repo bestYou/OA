@@ -180,7 +180,8 @@ namespace testEF
         //右上角小X，关闭窗口
         private void pictureBoxClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            //this.Close();
+            Application.Exit();
         }
         private void pictureBoxClose_MouseMove(object sender, MouseEventArgs e)
         {

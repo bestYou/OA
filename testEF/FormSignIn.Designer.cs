@@ -50,7 +50,8 @@
             this.signIn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.signIn.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.signIn.BackColor = System.Drawing.Color.SkyBlue;
+            this.signIn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.signIn.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.signIn.Font = new System.Drawing.Font("宋体", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.signIn.Location = new System.Drawing.Point(100, 250);
@@ -60,7 +61,7 @@
             this.signIn.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.signIn.TabIndex = 0;
             this.signIn.Text = "登录";
-            this.signIn.TextColor = System.Drawing.Color.White;
+            this.signIn.TextColor = System.Drawing.SystemColors.ControlText;
             this.signIn.Click += new System.EventHandler(this.signIn_Click);
             // 
             // tb_username
@@ -68,12 +69,14 @@
             this.tb_username.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tb_username.BackColor = System.Drawing.Color.White;
             // 
             // 
             // 
             this.tb_username.Border.Class = "TextBoxBorder";
             this.tb_username.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tb_username.Font = new System.Drawing.Font("宋体", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tb_username.ForeColor = System.Drawing.Color.Black;
             this.tb_username.Location = new System.Drawing.Point(177, 144);
             this.tb_username.Margin = new System.Windows.Forms.Padding(2);
             this.tb_username.Name = "tb_username";
@@ -89,12 +92,14 @@
             this.tb_password.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tb_password.BackColor = System.Drawing.Color.White;
             // 
             // 
             // 
             this.tb_password.Border.Class = "TextBoxBorder";
             this.tb_password.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tb_password.Font = new System.Drawing.Font("宋体", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tb_password.ForeColor = System.Drawing.Color.Black;
             this.tb_password.Location = new System.Drawing.Point(177, 191);
             this.tb_password.Margin = new System.Windows.Forms.Padding(2);
             this.tb_password.Name = "tb_password";
@@ -153,7 +158,6 @@
             this.panelEx1.Size = new System.Drawing.Size(464, 105);
             this.panelEx1.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelEx1.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
-            this.panelEx1.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
             this.panelEx1.Style.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelEx1.Style.BackgroundImage")));
             this.panelEx1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
             this.panelEx1.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
@@ -182,10 +186,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(9, -14);
+            this.pictureBox1.Location = new System.Drawing.Point(2, -13);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(103, 85);
+            this.pictureBox1.Size = new System.Drawing.Size(80, 61);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;

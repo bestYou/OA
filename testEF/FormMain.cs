@@ -40,13 +40,10 @@ namespace testEF
             initSubmissionPage();
 
             timer1.Enabled = true;
-
-
         }
 
         //登录成功提示
         public void showSuccess() {
-
             timer1.Enabled = false;
 
             FormSignInTips formSignInTips = new FormSignInTips();//要弹出的窗体（提示框）
@@ -59,7 +56,6 @@ namespace testEF
                 formSignInTips.Location = new Point(p.X, p.Y - i);
                 Thread.Sleep(5);//将线程沉睡时间调的越小升起的越快
             }
-
         }
 
         //构造函数，打开主界面时进入指定页面
@@ -88,10 +84,7 @@ namespace testEF
             {
                 stc_main.SelectedTabIndex = 4;
             }
-
         }
-
-
 
         hailyEntities db = new hailyEntities();
         String username = FormSignIn.userName_main;   //ConfigurationManager.AppSettings["name"];
@@ -109,9 +102,12 @@ namespace testEF
             List<user> list = db.user.Where(u => u.username == username).ToList();
             if (list[0].permission == 0) {
                 labelItem_permission.Text = "普通用户:";
-                sti_read_permission.Enabled = false;    //普通用户“权限审批”、“用户管理”、“软件管理 ”功能页面不可用
-                sti_user_control.Enabled = false;
-                sti_software_control.Enabled = false;
+                sti_read_permission.Visible = false;    //普通用户“权限审批”、“用户管理”、“软件管理 ”功能页面不可用
+                sti_user_control.Visible = false;
+                sti_software_control.Visible = false;
+                //sti_read_permission.Enabled = false;    //普通用户“权限审批”、“用户管理”、“软件管理 ”功能页面不可用
+                //sti_user_control.Enabled = false;
+                //sti_software_control.Enabled = false;
             } else if (list[0].permission == 1) {
                 labelItem_permission.Text = "管理员:";
             }
@@ -136,6 +132,7 @@ namespace testEF
                 userInfo.model = _shenpi.model;
                 userInfo.version = _shenpi.version;
                 userInfo.result = result;
+                userInfo.send_time = _shenpi.send_time;
                 
                 //用户名、软件名、模块名、版本号、申请时间、处理结果
                 list_userInfo.Add(userInfo);
@@ -167,9 +164,7 @@ namespace testEF
             btn.HeaderText = "下载授权文件";
             btn.DefaultCellStyle.NullValue = "下载";
             dgv_userInfo.Columns.Add(btn);
-
-            dgv_userInfo.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            
+            dgv_userInfo.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;         
         }
         List<UserInfo> list_userInfo = new List<UserInfo>();
 
@@ -197,8 +192,6 @@ namespace testEF
                 }
             }
         }
-
-
 
         struct mess {
             public String mes;
@@ -240,8 +233,6 @@ namespace testEF
             int column = dgv_user_control.CurrentCell.ColumnIndex;
             int row = dgv_user_control.CurrentCell.RowIndex;
 
-            //User_Control user_control_read = new User_Control();
-            //user_control_read = (User_Control)list_user_control[row];
             String _userName = list_user_control[row].username;
 
             //修改密码
@@ -253,15 +244,11 @@ namespace testEF
             //注销用户
             if (column == 3) {
                 ////从数据库中删除用户,包括 用户表
-                //var permissionList = from u in db.permission
-                //                   where u.username == _userName
-                //                   select u;
                 var userInfoList = from u in db.user
                                    where u.username == _userName
                                    select u;
-                //permission _permission = permissionList.FirstOrDefault();
                 user _userInfo = userInfoList.FirstOrDefault();
-                if (/*_permission != null &&*/ _userInfo != null)
+                if ( _userInfo != null)
                 {
                     DialogResult result = MessageBox.Show("确定注销用户用户“"+_userName+"”？","提示窗口", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (result == DialogResult.Yes) {
@@ -340,16 +327,12 @@ namespace testEF
                 }
             }
 
-
             //软件列表combobox绑定List
             cb_software.DataSource = list_software;
             cb_software.DisplayMember = "name";
             cb_software.ValueMember = "name";
-
         }
-
-
-
+ 
         //初始化 权限审批页面
         public void initPermissionReadPage() {
             initSendListData();
@@ -496,9 +479,7 @@ namespace testEF
         {
             int column = dgv_soft.CurrentCell.ColumnIndex;
             int row = dgv_soft.CurrentCell.RowIndex;
-
-            //User_Control user_control_read = new User_Control();
-            //user_control_read = (User_Control)list_user_control[row];
+            
             String _softwareName = list_soft_control[row].name;
 
             //修改软件信息
@@ -542,7 +523,6 @@ namespace testEF
             }
         }
 
-
         #region 无边框移动窗口
         //无边框移动窗口
         [DllImport("user32.dll")]
@@ -566,26 +546,22 @@ namespace testEF
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            //this.Close();
             Application.Exit();
         }
 
         private void superTabControlPanel1_Click(object sender, EventArgs e)
         {
-
         }
 
         [System.Runtime.InteropServices.ComVisibleAttribute(true)]
 
 
         private void button1_Click(object sender, EventArgs e)
-        {
-            
+        {          
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void pictureBox8_Click(object sender, EventArgs e)
@@ -594,12 +570,10 @@ namespace testEF
 
         private void pictureBox8_MouseMove(object sender, MouseEventArgs e)
         {
-            //pictureBox8.BackColor = Color.Red;
         }
 
         private void pictureBox8_MouseLeave(object sender, EventArgs e)
         {
-            //pictureBox8.BackColor = Color.Transparent;
         }
 
         private void pictureBox2_MouseMove(object sender, MouseEventArgs e)
@@ -652,30 +626,21 @@ namespace testEF
             return file.FileName;
         }
 
-
-
-
-
-
         private void superTabControlPanel2_Click(object sender, EventArgs e)
         {
-
         }
 
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
         {
-
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-
         }
 
         //生成授权文件
         private void buttonX1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void rb_beta_CheckedChanged(object sender, EventArgs e)
@@ -688,8 +653,6 @@ namespace testEF
                 dateTimePicker.Enabled = false;
                 label5.Enabled = false;
             }
-
-
         }
 
         // 《权限申请页面》 点击可 展开 或 关闭 “软件模块选择列表”
@@ -707,23 +670,18 @@ namespace testEF
 
         private void tbd_model_MouseMove(object sender, MouseEventArgs e)
         {
-            //checkedListBox.Visible = true;
         }
 
         private void tbd_model_MouseLeave(object sender, EventArgs e)
         {
-            //checkedListBox.Visible = false;
         }
 
         private void tbd_model_DoubleClick(object sender, EventArgs e)
         {
-           // checkedListBox.Visible = false;
         }
 
         private void tbd_model_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            //checkedListBox.Visible = false;
-
         }
 
         // 《 权限申请页面》 -> 模块名显示
@@ -741,19 +699,14 @@ namespace testEF
             }
             if (list.EndsWith("，")) {
                 list = list.Substring(0,list.Length-1);
-                //MessageBox.Show("yes");
             }
-
             tbd_model.Text += list;
-
         }
 
         //选择 待申请软件
         /*
          软件不同，从软件表加载不同的软件所对应的版本号
          */
-
-        //int count_select_init = 0;
         private void cb_software_SelectedIndexChanged(object sender, EventArgs e)
         {
             tbd_model.Text = "";
@@ -814,8 +767,7 @@ namespace testEF
             
             //刷新 用户中心页面 -> 申请记录列表
             dgv_userInfo.Rows.Clear();
-            initUserInfo();
-  
+            initUserInfo();  
         }
         //审批表插入一条数据
         public void submission()
@@ -871,7 +823,6 @@ namespace testEF
             else {
                 MessageBox.Show("请完善申请信息！");
             }
-
         }
         //申请信息保存到本地
         public void saveSubmission() {
@@ -881,7 +832,7 @@ namespace testEF
             FileStream fs = new FileStream("E:\\Program Files\\" + software_name+"_"+ cb_version.Text + "_" + tbd_model.Text + ".dat", FileMode.Create);
             StreamWriter sw = new StreamWriter(fs);
             //开始写入
-            /*            pLocalFilePath += software + "_" + version + "_" + model + ".dat";
+            /*            
              申请文件格式：
                 1. 软件路径
                 2. 用户信息
@@ -957,15 +908,7 @@ namespace testEF
             list_userInfo.Clear();
             dgv_userInfo.DataSource = null;
             initUserInfo();
-            
-
-
-            ////检索每条审批数据，若通过审批，则可生成授权文件
-            //list_generate_software = db.shenpi.Where(u => u.username == username && u.is_read==1 && u.is_through==1).ToList();
-            //if (list_generate_software.Count>=1) {
-            //    but_generate.Enabled = true;                
-            //}
-            
+                                    
         }
 
         private void rtb_user_info_DoubleClick(object sender, EventArgs e)
@@ -984,7 +927,6 @@ namespace testEF
 
         private void rtb_cpu_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            MessageBox.Show("test");
         }
 
         private void splitContainer1_Panel1_Click(object sender, EventArgs e)
@@ -1031,10 +973,9 @@ namespace testEF
 
             if (File.Exists(pLocalFilePath))//必须判断要复制的文件是否存在
             {
-                if (SelectPath()!=String.Empty) {
-
-                    string pSaveFilePath = SelectPath() + "\\Haily_" + software + "_" + version + "_" + model + ".dat";    //保存至目标文件夹
-
+                String selectPath = SelectPath();
+                if (selectPath!=String.Empty) {
+                    string pSaveFilePath = selectPath + "\\Haily_" + software + "_" + version + "_" + model + ".dat";    //保存至目标文件夹
                     File.Copy(pLocalFilePath, pSaveFilePath, true);//三个参数分别是源文件路径，存储路径，若存储路径有相同文件是否替换
                     MessageBox.Show("下载授权文件成功，保存在：" + pSaveFilePath);
                 }
@@ -1043,27 +984,7 @@ namespace testEF
             {
                 MessageBox.Show("该条申请已过期,请重新提交申请");
             }
-
-
-            //思路为，遍历审核通过的软件列表，则可知 原始存储路径 为“固定文件夹”+“审核通过的软件名”.haily
-            //foreach (var submission in list_generate_software) {
-            //    String localPath = "";   //动态改变的待复制文件具体路径
-            //    localPath += pLocalFilePath+"windows_"+submission.software+".haily";
-
-            //    //复制后，指定存储的路径"E:\\Program Files\\windows_"+software_name+".haily"
-            //    String outPath = pSaveFilePath+"\\Haily_"+ submission.software + ".dat";
-
-            //    if (File.Exists(localPath))//必须判断要复制的文件是否存在
-            //    {
-            //        File.Copy(localPath, outPath, true);//三个参数分别是源文件路径，存储路径，若存储路径有相同文件是否替换
-            //        MessageBox.Show("已生成授权文件，保存在：" + outPath);
-            //    }
-            //    else {
-            //        MessageBox.Show("请重新提交申请");
-            //    }
-
-            //}
-
+            
             #region 测试解码授权文件
             //OpenFileDialog openFileDialog = new OpenFileDialog();
             //String filePath = "E:\\Program Files\\windows.dat";
@@ -1089,20 +1010,8 @@ namespace testEF
         }
 
         //《首页》 -> 消息盒子
-        int click_message = 0;
         private void pictureBox2_Click_1(object sender, EventArgs e)
-        {
-        //    if (click_message==0) {
-        //        dgv_userInfo.Visible = true;
-                
-        //        click_message++;
-        //    }
-        //    else if (click_message == 1) {
-        //        dgv_userInfo.Visible = false;
-        //        //pictureBox_title.Visible = true;
-        //        click_message--;
-        //    }
-            
+        {            
         }
 
         //System.Management;//需要添加引用(系统自带)
@@ -1133,6 +1042,30 @@ namespace testEF
         }//end method  
 
         private void dgv_userInfo_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
+        {
+            int row = e.Row.Index + 1;
+            e.Row.HeaderCell.Value = string.Format("{0}", row);
+        }
+
+        private void dgv_send_list_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
+        {
+            int row = e.Row.Index + 1;
+            e.Row.HeaderCell.Value = string.Format("{0}", row);
+        }
+
+        private void dgv_read_list_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
+        {
+            int row = e.Row.Index + 1;
+            e.Row.HeaderCell.Value = string.Format("{0}", row);
+        }
+
+        private void dgv_user_control_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
+        {
+            int row = e.Row.Index + 1;
+            e.Row.HeaderCell.Value = string.Format("{0}", row);
+        }
+
+        private void dgv_soft_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
             int row = e.Row.Index + 1;
             e.Row.HeaderCell.Value = string.Format("{0}", row);
