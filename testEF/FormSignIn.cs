@@ -35,7 +35,7 @@ namespace testEF
             try
             {
                 userName_main = tb_username.Text.ToString();
-                if (ConfigurationManager.AppSettings["password"].Length == 32)
+                if ( userName_main ==ConfigurationManager.AppSettings["name"] && ConfigurationManager.AppSettings["password"].Length == 32)
                 {
                     passWord = ConfigurationManager.AppSettings["password"];
                 }

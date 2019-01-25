@@ -113,6 +113,7 @@
     <Compile Include="AddUserControl.Designer.cs">
       <DependentUpon>AddUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Base64.cs" />
     <Compile Include="efModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -187,6 +188,7 @@
     <Compile Include="user.cs">
       <DependentUpon>efModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserInfo.cs" />
     <EmbeddedResource Include="AddUserControl.resx">
       <DependentUpon>AddUserControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -253,6 +255,14 @@
       <DependentUpon>efModel.edmx</DependentUpon>
       <LastGenOutput>efModel.cs</LastGenOutput>
     </Content>
+    <Content Include="image\close.png" />
+    <Content Include="image\haily_logo.png" />
+    <Content Include="image\haily_logo11.png" />
+    <Content Include="image\haily_logo112.png" />
+    <Content Include="image\haily_main.png" />
+    <Content Include="image\logo.ico" />
+    <Content Include="image\tip.png" />
+    <Content Include="image\消息盒子.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
