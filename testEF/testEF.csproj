@@ -261,7 +261,10 @@
     <Content Include="image\haily_logo112.png" />
     <Content Include="image\haily_main.png" />
     <Content Include="image\logo.ico" />
-    <Content Include="image\tip.png" />
+    <Content Include="image\openCPU.png" />
+    <Content Include="image\sea.jpg" />
+    <Content Include="image\signInTip.png" />
+    <Content Include="image\user.png" />
     <Content Include="image\消息盒子.png" />
   </ItemGroup>
   <ItemGroup>

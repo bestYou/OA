@@ -115,7 +115,7 @@ namespace testEF
             if (ConfigurationManager.AppSettings["rememberme"].Equals("true"))
             {
                 tb_username.Text = ConfigurationManager.AppSettings["name"];
-                tb_password.Text = ConfigurationManager.AppSettings["password"];
+                tb_password.Text = "*********";//ConfigurationManager.AppSettings["password"];
                 cb_save_password.Checked = true;
             }
             //如果是自动登录  那么拿获取 配置文件中的账号密码  然后到数据库里边查询 登录
