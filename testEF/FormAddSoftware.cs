@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace testEF
@@ -16,11 +10,6 @@ namespace testEF
         public FormAddSoftware()
         {
             InitializeComponent();
-        }
-
-        private void panelEx2_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void but_addSoft_Click(object sender, EventArgs e)
@@ -36,24 +25,16 @@ namespace testEF
         public void addSoftware()
         {
 
-            if (tb_new_soft.Text != null && tb_new_model.Text != null && tb_new_version.Text != null)
+            if (tb_new_soft.Text.Trim() != "" && tb_new_model.Text.Trim() != "" && tb_new_version.Text.Trim() != "")
             {
                 hailyEntities db = new hailyEntities();
-
-                //user _user_add = new user();
                 software _software_add = new software();
-
-                //_user_add.username = tb_new_user.Text;
-                //_user_add.password = EncodeMD5.getMD5(tb_new_password.Text.Trim());//tb_new_password.Text;
-                //_user_add.permission = cb_new_permission.SelectedIndex;
-                //_user_add.company = tb_company.Text;
-
+                                
                 _software_add.name = tb_new_soft.Text;
                 _software_add.model = tb_new_model.Text;  //默认授予新用户的软件模块使用
                 _software_add.version = tb_new_version.Text;
 
                 db.software.Add(_software_add);
-                //db.software.Add(_software_add);
                 db.SaveChanges();
                 MessageBox.Show("软件添加成功！");
 
@@ -62,15 +43,15 @@ namespace testEF
 
                 this.Close();
             }
-            else if (tb_new_soft.Text == null)
+            else if (tb_new_soft.Text.Trim() == "")
             {
                 MessageBox.Show("请输入软件名！", "缺少参数", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            else if (tb_new_model == null && tb_new_soft != null)
+            else if (tb_new_model.Text.Trim() == "" && tb_new_soft.Text.Trim() != "")
             {
                 MessageBox.Show("请输入模块名！", "缺少参数", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            else if (tb_new_soft.Text != null && tb_new_model.Text != null && tb_new_version.Text == null)
+            else if (tb_new_soft.Text.Trim() != "" && tb_new_model.Text.Trim() != "" && tb_new_version.Text.Trim() == "")
             {
                 MessageBox.Show("请输入版本号！", "缺少参数", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }

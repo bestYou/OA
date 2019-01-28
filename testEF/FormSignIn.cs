@@ -1,15 +1,11 @@
 ﻿using DevComponents.DotNetBar;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace testEF
@@ -52,14 +48,10 @@ namespace testEF
                     if (list2.Count >= 1)
                     {
                         //用户存在且密码正确
-                        //MessageBox.Show("登录成功！", "温馨提示");
-     
                         saveAutoSignIn();
 
                         FormMain formMain = new FormMain();
                         formMain.Show();
-
-                        
                         this.Hide();
                     }
                     else
@@ -135,14 +127,12 @@ namespace testEF
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         public static extern int GetClassLong(IntPtr hwnd, int nIndex);
 
-
         #region 输入框焦点事件响应、输入框按键捕捉
         private void tb_username_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter) {
                 tb_password.Focus();
-            }
-            
+            }          
         }
 
         private void tb_password_KeyDown(object sender, KeyEventArgs e)
@@ -150,7 +140,6 @@ namespace testEF
             if (e.KeyCode == Keys.Enter) {
                 signIn.PerformClick();
             }
-
         }
         #endregion
 
@@ -169,18 +158,11 @@ namespace testEF
             SendMessage(this.Handle, WM_SYSCOMMAND, SC_MOVE + HTCAPTION, 0);
         }
         #endregion
-
-
-        private void pictureBoxUser_Click(object sender, EventArgs e)
-        {
-
-        }
-
+                
         #region 右上角小X
         //右上角小X，关闭窗口
         private void pictureBoxClose_Click(object sender, EventArgs e)
         {
-            //this.Close();
             Application.Exit();
         }
         private void pictureBoxClose_MouseMove(object sender, MouseEventArgs e)
@@ -192,17 +174,6 @@ namespace testEF
             pictureBoxClose.BackColor = Color.Transparent;
         }
         #endregion
-
-        private void signIn_MouseMove(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-
-        }
-
 
     }
 }

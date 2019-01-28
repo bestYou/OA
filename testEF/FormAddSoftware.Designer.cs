@@ -62,13 +62,11 @@
             this.panelEx2.Size = new System.Drawing.Size(374, 255);
             this.panelEx2.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelEx2.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
-            this.panelEx2.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
             this.panelEx2.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
             this.panelEx2.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
             this.panelEx2.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
             this.panelEx2.Style.GradientAngle = 90;
             this.panelEx2.TabIndex = 35;
-            this.panelEx2.Click += new System.EventHandler(this.panelEx2_Click);
             this.panelEx2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel_Top_MouseDown);
             // 
             // pictureBox_close
@@ -111,7 +109,7 @@
             this.tb_new_version.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tb_new_version.Font = new System.Drawing.Font("宋体", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tb_new_version.ForeColor = System.Drawing.Color.Black;
-            this.tb_new_version.Location = new System.Drawing.Point(101, 165);
+            this.tb_new_version.Location = new System.Drawing.Point(96, 147);
             this.tb_new_version.Margin = new System.Windows.Forms.Padding(2);
             this.tb_new_version.Name = "tb_new_version";
             this.tb_new_version.Size = new System.Drawing.Size(184, 25);
@@ -126,7 +124,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.but_cancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.but_cancel.Font = new System.Drawing.Font("宋体", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.but_cancel.Location = new System.Drawing.Point(197, 205);
+            this.but_cancel.Location = new System.Drawing.Point(192, 187);
             this.but_cancel.Margin = new System.Windows.Forms.Padding(2);
             this.but_cancel.Name = "but_cancel";
             this.but_cancel.Size = new System.Drawing.Size(88, 25);
@@ -143,7 +141,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.but_addSoft.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.but_addSoft.Font = new System.Drawing.Font("宋体", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.but_addSoft.Location = new System.Drawing.Point(101, 205);
+            this.but_addSoft.Location = new System.Drawing.Point(96, 187);
             this.but_addSoft.Margin = new System.Windows.Forms.Padding(2);
             this.but_addSoft.Name = "but_addSoft";
             this.but_addSoft.Size = new System.Drawing.Size(88, 25);
@@ -165,7 +163,7 @@
             this.tb_new_model.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tb_new_model.Font = new System.Drawing.Font("宋体", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tb_new_model.ForeColor = System.Drawing.Color.Black;
-            this.tb_new_model.Location = new System.Drawing.Point(101, 136);
+            this.tb_new_model.Location = new System.Drawing.Point(96, 118);
             this.tb_new_model.Margin = new System.Windows.Forms.Padding(2);
             this.tb_new_model.Name = "tb_new_model";
             this.tb_new_model.Size = new System.Drawing.Size(184, 25);
@@ -185,7 +183,7 @@
             this.tb_new_soft.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.tb_new_soft.Font = new System.Drawing.Font("宋体", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tb_new_soft.ForeColor = System.Drawing.Color.Black;
-            this.tb_new_soft.Location = new System.Drawing.Point(101, 107);
+            this.tb_new_soft.Location = new System.Drawing.Point(96, 89);
             this.tb_new_soft.Margin = new System.Windows.Forms.Padding(2);
             this.tb_new_soft.Name = "tb_new_soft";
             this.tb_new_soft.Size = new System.Drawing.Size(184, 25);
@@ -202,7 +200,7 @@
             // 
             this.labelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX4.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelX4.Location = new System.Drawing.Point(54, 57);
+            this.labelX4.Location = new System.Drawing.Point(51, 47);
             this.labelX4.Margin = new System.Windows.Forms.Padding(2);
             this.labelX4.Name = "labelX4";
             this.labelX4.Size = new System.Drawing.Size(214, 26);

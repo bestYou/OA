@@ -28,10 +28,7 @@ namespace testEF
             tb_up_software.Text = soft.name;
             tb_up_model.Text = soft.model;
             tb_up_version.Text = soft.version;
-
         }
-
-
 
         private void but_cancel_Click(object sender, EventArgs e)
         {
@@ -39,11 +36,6 @@ namespace testEF
             formMain.Show();
 
             this.Hide();
-        }
-
-        private void labelX2_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void but_up_user_Click(object sender, EventArgs e)

@@ -31,10 +31,8 @@ namespace testEF
             tb_company.Text = _user.company;
         }
 
-
         public void updateUserInfo(String userName)
         {
-
             if (tb_username.Text != null && tb_up_password.Text != null && tb_company.Text != null)
             {
                 hailyEntities db = new hailyEntities();
@@ -47,12 +45,12 @@ namespace testEF
                 var userInfoObject = userInfo.FirstOrDefault();
 
                 //修改密码
-                userInfoObject.password = EncodeMD5.getMD5(tb_up_password.Text.Trim());//tb_up_password.Text;//新密码
+                userInfoObject.password = EncodeMD5.getMD5(tb_up_password.Text.Trim());
 
                 //如果用户名与原始用户名不同，则修改用户名
                 if (userName != tb_username.Text)
                 {
-                    //用户信息表
+                    //用户信息表中的用户名
                     userInfoObject.username = tb_username.Text;
 
                     //软件授权记录表中的用户名，也应修改
@@ -89,7 +87,6 @@ namespace testEF
             else {
                 MessageBox.Show("请重新输入用户信息！", "缺少参数", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
         }
    
         private void but_up_user_Click(object sender, EventArgs e)

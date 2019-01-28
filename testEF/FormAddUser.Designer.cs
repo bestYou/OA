@@ -36,7 +36,7 @@
             this.cb_new_permission = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.comboItem1 = new DevComponents.Editors.ComboItem();
             this.comboItem2 = new DevComponents.Editors.ComboItem();
-            this.buttonX1 = new DevComponents.DotNetBar.ButtonX();
+            this.but_cancel = new DevComponents.DotNetBar.ButtonX();
             this.but_up_user = new DevComponents.DotNetBar.ButtonX();
             this.tb_new_password = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.tb_new_user = new DevComponents.DotNetBar.Controls.TextBoxX();
@@ -54,7 +54,7 @@
             this.panelEx2.Controls.Add(this.pictureBox1);
             this.panelEx2.Controls.Add(this.tb_company);
             this.panelEx2.Controls.Add(this.cb_new_permission);
-            this.panelEx2.Controls.Add(this.buttonX1);
+            this.panelEx2.Controls.Add(this.but_cancel);
             this.panelEx2.Controls.Add(this.but_up_user);
             this.panelEx2.Controls.Add(this.tb_new_password);
             this.panelEx2.Controls.Add(this.tb_new_user);
@@ -88,6 +88,8 @@
             this.pictureBox_close.TabIndex = 38;
             this.pictureBox_close.TabStop = false;
             this.pictureBox_close.Click += new System.EventHandler(this.pictureBox_close_Click);
+            this.pictureBox_close.MouseLeave += new System.EventHandler(this.pictureBox_close_MouseLeave);
+            this.pictureBox_close.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_close_MouseMove);
             // 
             // pictureBox1
             // 
@@ -148,24 +150,22 @@
             // 
             this.comboItem2.Text = "管理员";
             // 
-            // buttonX1
+            // but_cancel
             // 
-            this.buttonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.buttonX1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.but_cancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.but_cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonX1.Font = new System.Drawing.Font("宋体", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonX1.Location = new System.Drawing.Point(196, 207);
-            this.buttonX1.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonX1.Name = "buttonX1";
-            this.buttonX1.Size = new System.Drawing.Size(88, 25);
-            this.buttonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.buttonX1.TabIndex = 31;
-            this.buttonX1.Text = "取消";
-            this.buttonX1.Click += new System.EventHandler(this.but_cancel_Click);
-            this.buttonX1.MouseLeave += new System.EventHandler(this.buttonX1_MouseLeave);
-            this.buttonX1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.buttonX1_MouseMove);
+            this.but_cancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.but_cancel.Font = new System.Drawing.Font("宋体", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.but_cancel.Location = new System.Drawing.Point(196, 207);
+            this.but_cancel.Margin = new System.Windows.Forms.Padding(2);
+            this.but_cancel.Name = "but_cancel";
+            this.but_cancel.Size = new System.Drawing.Size(88, 25);
+            this.but_cancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.but_cancel.TabIndex = 31;
+            this.but_cancel.Text = "取消";
+            this.but_cancel.Click += new System.EventHandler(this.but_cancel_Click);
             // 
             // but_up_user
             // 
@@ -269,7 +269,7 @@
         private DevComponents.DotNetBar.Controls.ComboBoxEx cb_new_permission;
         private DevComponents.Editors.ComboItem comboItem1;
         private DevComponents.Editors.ComboItem comboItem2;
-        private DevComponents.DotNetBar.ButtonX buttonX1;
+        private DevComponents.DotNetBar.ButtonX but_cancel;
         private DevComponents.DotNetBar.ButtonX but_up_user;
         private DevComponents.DotNetBar.Controls.TextBoxX tb_new_password;
         private DevComponents.DotNetBar.Controls.TextBoxX tb_new_user;

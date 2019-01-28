@@ -1,13 +1,7 @@
 ﻿using DevComponents.DotNetBar;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace testEF
@@ -24,23 +18,17 @@ namespace testEF
 
         public void addUser() {
 
-            if (tb_new_user.Text != null && tb_new_password.Text != null && tb_company.Text != null)
+            if (tb_new_user.Text.Trim() != "" && tb_new_password.Text.Trim() != "" && tb_company.Text.Trim() != "")
             {
                 hailyEntities db = new hailyEntities();
-
                 user _user_add = new user();
-                //software _software_add = new software();
 
                 _user_add.username = tb_new_user.Text;
                 _user_add.password = EncodeMD5.getMD5(tb_new_password.Text.Trim());//tb_new_password.Text;
                 _user_add.permission = cb_new_permission.SelectedIndex;
                 _user_add.company = tb_company.Text;
 
-                //_software_add.username = tb_new_user.Text;
-                //_software_add.sw_view = 1;  //默认授予新用户的软件模块使用
-
                 db.user.Add(_user_add);
-                //db.software.Add(_software_add);
                 db.SaveChanges();
                 MessageBox.Show("用户创建成功！");
 
@@ -49,16 +37,15 @@ namespace testEF
 
                 this.Close();
             }
-            else if (tb_new_user.Text == null) {
+            else if (tb_new_user.Text.Trim() == "") {
                 MessageBox.Show("请输入用户名！", "缺少参数", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            else if (tb_new_password == null && tb_new_user != null)
+            else if (tb_new_password.Text.Trim() == "" && tb_new_user.Text.Trim() != "")
             {
                 MessageBox.Show("请输入密码！", "缺少参数", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            } else if (tb_new_user.Text != null && tb_new_password.Text != null && tb_company.Text == null) {
+            } else if (tb_new_user.Text.Trim() != "" && tb_new_password.Text.Trim() != "" && tb_company.Text.Trim() == "") {
                 MessageBox.Show("请输入公司名！", "缺少参数", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
         }
 
         private void but_creat_user_Click(object sender, EventArgs e)
@@ -91,15 +78,15 @@ namespace testEF
         #region 右上角小叉号
         private void pictureBox_close_Click(object sender, EventArgs e)
         {
-            buttonX1.PerformClick();
+            but_cancel.PerformClick();
         }
 
-        private void buttonX1_MouseMove(object sender, MouseEventArgs e)
+        private void pictureBox_close_MouseMove(object sender, MouseEventArgs e)
         {
             pictureBox_close.BackColor = Color.Red;
         }
 
-        private void buttonX1_MouseLeave(object sender, EventArgs e)
+        private void pictureBox_close_MouseLeave(object sender, EventArgs e)
         {
             pictureBox_close.BackColor = Color.Transparent;
         }
