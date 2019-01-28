@@ -83,6 +83,16 @@ namespace testEF.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap haily_main {
+            get {
+                object obj = ResourceManager.GetObject("haily_main", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap openCPU {
             get {
                 object obj = ResourceManager.GetObject("openCPU", resourceCulture);
@@ -96,6 +106,26 @@ namespace testEF.Properties {
         internal static System.Drawing.Bitmap sea {
             get {
                 object obj = ResourceManager.GetObject("sea", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap signInTip {
+            get {
+                object obj = ResourceManager.GetObject("signInTip", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap user {
+            get {
+                object obj = ResourceManager.GetObject("user", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

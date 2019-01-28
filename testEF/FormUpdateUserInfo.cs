@@ -47,20 +47,22 @@ namespace testEF
                 //修改密码
                 userInfoObject.password = EncodeMD5.getMD5(tb_up_password.Text.Trim());
 
-                //如果用户名与原始用户名不同，则修改用户名
-                if (userName != tb_username.Text)
-                {
-                    //用户信息表中的用户名
-                    userInfoObject.username = tb_username.Text;
+                ////如果用户名与原始用户名不同，则修改用户名
+                //if (userName != tb_username.Text)
+                //{
+                //    //用户信息表中的用户名
+                //    userInfoObject.username = tb_username.Text;
 
-                    //软件授权记录表中的用户名，也应修改
-                    var permissionInfo = from u in db.permission
-                                         where u.username == userName
-                                         select u;
-                    var softwareInfoObject = permissionInfo.FirstOrDefault();
-                    softwareInfoObject.username = tb_username.Text;
-                    db.Entry<permission>(softwareInfoObject).State = System.Data.Entity.EntityState.Modified;
-                }
+                //    //软件授权记录表中的用户名，也应修改
+                //    var permissionInfo = from u in db.permission
+                //                         where u.username == userName
+                //                         select u;
+                //    var softwareInfoObject = permissionInfo.FirstOrDefault();
+
+
+                //    softwareInfoObject.username = tb_username.Text;
+                //    db.Entry<permission>(softwareInfoObject).State = System.Data.Entity.EntityState.Modified;
+                //}
                 userInfoObject.company = tb_company.Text;
 
                 userInfoObject.permission = cb_new_permission.SelectedIndex;

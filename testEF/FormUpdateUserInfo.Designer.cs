@@ -66,7 +66,6 @@
             this.panelEx1.Size = new System.Drawing.Size(374, 255);
             this.panelEx1.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelEx1.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
-            this.panelEx1.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
             this.panelEx1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
             this.panelEx1.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
             this.panelEx1.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
@@ -90,7 +89,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Image = global::testEF.Properties.Resources.haily_main;
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(53, 32);
@@ -217,6 +216,7 @@
             this.tb_username.Location = new System.Drawing.Point(100, 81);
             this.tb_username.Margin = new System.Windows.Forms.Padding(2);
             this.tb_username.Name = "tb_username";
+            this.tb_username.ReadOnly = true;
             this.tb_username.Size = new System.Drawing.Size(184, 25);
             this.tb_username.TabIndex = 22;
             this.tb_username.WatermarkText = "用户名";
