@@ -55,6 +55,9 @@ namespace testEF
 
         private void but_cancel_Click(object sender, EventArgs e)
         {
+            FormMain formMain = new FormMain("softwareControlPage");
+            formMain.Show();
+
             this.Hide();
         }
 

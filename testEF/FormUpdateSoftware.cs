@@ -52,12 +52,11 @@ namespace testEF
         {
             if (tb_up_software.Text != null && tb_up_model.Text != null && tb_up_version.Text != null)
             {
-
                 hailyEntities db = new hailyEntities();
 
                 //查询要获取的对象
                 var softwareInfo = from u in db.software
-                                   where (u.Id == soft_main.Id)
+                                   where (u.name == soft_main.name && u.model==soft_main.model && u.version==soft_main.version)
                                    select u;
                 //获得具体对象
                 var softwareInfoObject = softwareInfo.FirstOrDefault();

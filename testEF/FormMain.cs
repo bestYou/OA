@@ -41,11 +41,11 @@ namespace testEF
             UpdateInfo();
             SetHeaderName();
         }
-        
+
         /// <summary>
         ///进入指定页面 
         /// </summary>
-        /// <param name="page">主界面的不同页面</param>
+        /// <param name="page">主界面的不同页面,page = "userControlPage":用户管理页面,page = "softwareControlPage":软件管理页面</param>
         public FormMain(String page) {
             InitializeComponent();
 
@@ -103,11 +103,11 @@ namespace testEF
             DataTable dt = new DataTable();
             dt.Columns.Add("username");
             dt.Columns.Add("software");
-            dt.Columns.Add("model");
             dt.Columns.Add("version");
-            dt.Columns.Add("result");
+            dt.Columns.Add("model");
             dt.Columns.Add("send_time");
-
+            dt.Columns.Add("result");
+            
             DataRow newRow; ;
             for (int i = 0; i < list_shenpi.Count; i++)
             {
@@ -230,9 +230,8 @@ namespace testEF
         }
         #endregion
 
-        #region 《用户管理》
-        //初始化 用户管理页面 -> 用户列表数据
-        public void data_user_initialize()
+        #region 《用户管理》   
+        public void data_user_initialize()  //初始化 用户管理页面 -> 用户列表数据
         {
             ptl_user_control.Text = "你好，管理员“"+username+"”";
             List<user> list_user = db.user.ToList();
@@ -390,7 +389,7 @@ namespace testEF
             }
         }
 
-        #region 《权限申请页面》 -> 选择软件
+        #region 《权限申请页面》 -> 选择软件、模块、版本
         // 《权限申请页面》 -> 模块列表
         int count_tbd_model_click = 0;
         private void tbd_model_Click(object sender, EventArgs e)
@@ -464,172 +463,7 @@ namespace testEF
         }
         #endregion
 
-        #region 打开并显示CPU号
-        private void tp_cpu_Click(object sender, EventArgs e)
-        {
-            showCPU();
-
-            rtb_cpu.Visible = true;
-            splitContainer_cpu.Visible = true;
-        }
-        private void splitContainer1_Panel1_Click(object sender, EventArgs e)
-        {
-            showCPU();
-        }
-        public void showCPU()
-        {
-            rtb_cpu.Clear();
-            //打开文件，并显示
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "文本文件(*.txt)|*.txt|所有文件(*.*)|*.*";
-            openFileDialog.Multiselect = true;//可以选择多个文件
-            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                String filePath = openFileDialog.FileName;
-                try
-                {
-                    using (StreamReader sr = new StreamReader(filePath))
-                    {
-                        string line;
-                        while ((line = sr.ReadLine()) != null)
-                        {
-                            rtb_cpu.Text += line;
-                            rtb_cpu.AppendText(Environment.NewLine);
-                        }
-                        sr.Close();
-                    }
-                }
-                catch (Exception ee)
-                {
-                    MessageBox.Show(ee.Message);
-                }
-            }
-        }
-        #endregion
-        #endregion
-
-        #region 《权限审批》       
-        public void initPermissionReadPage() //初始化 权限审批页面
-        {
-            initSendListData();
-            initReadListData();
-        }
-        
-        List<shenpi> shenpi_read_list = new List<shenpi>(); //存储 未处理的审批数据
-        public void initSendListData()  //初始化 权限审批页面 -> 申请列表数据
-        {
-            List<shenpi> list_shenpi = db.shenpi.ToList();
-
-            //检索每条审批数据，显示未处理的数据
-            foreach (var _shenpi in list_shenpi)
-            {
-                if (_shenpi.is_read==0) {
-                    //申请列表：用户名、软件名、模块名、版本号、用途、申请时间
-                    this.dgv_send_list.Rows.Add(_shenpi.username,_shenpi.software,_shenpi.model,_shenpi.version,_shenpi.model_tips,_shenpi.use_time, _shenpi.send_time, "通过", "拒绝");
-                    shenpi_read_list.Add(_shenpi);
-                }               
-            }
-        }
-                
-        public void initReadListData()  //初始化 权限审批页面 -> 授权记录数据
-        {
-            List<shenpi> list_shenpi = db.shenpi.ToList();
-
-            //检索每条审批数据，显示未处理的数据
-            foreach (var _shenpi in list_shenpi)
-            {
-                if (_shenpi.is_read == 1)
-                {
-                    if (_shenpi.is_through==0) {
-                        //授权记录：用户名、软件名、模块名、版本号、用途、处理结果、申请时间、处理时间
-                        this.dgv_read_list.Rows.Add(_shenpi.username,_shenpi.software, _shenpi.model,_shenpi.version, _shenpi.model_tips,_shenpi.use_time,"拒绝", _shenpi.send_time,_shenpi.read_time);
-                    }
-                    if (_shenpi.is_through==1) {
-                        this.dgv_read_list.Rows.Add(_shenpi.username, _shenpi.software,_shenpi.model,_shenpi.version, _shenpi.model_tips, _shenpi.use_time, "通过", _shenpi.send_time, _shenpi.read_time);
-                    }
-                }
-            }
-        }
-
-        //监听 权限审批页面 -> 申请列表 点击事件
-        void DataGridViewX_SendList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int column = dgv_send_list.CurrentCell.ColumnIndex;
-            int row = dgv_send_list.CurrentCell.RowIndex;
-
-            shenpi _shenpi = new shenpi();
-            _shenpi = (shenpi)shenpi_read_list[row];
-
-            //通过
-            if (column == 7)
-            {
-                //修改 审批表（审批状态）、软件权限表（用户拥有软件权限）
-                //修改审批表
-                var shenpiList = from u in db.shenpi
-                                 where u.Id == _shenpi.Id
-                                 select u;
-                var shenpiListObject = shenpiList.FirstOrDefault();
-                shenpiListObject.is_read = 1;
-                shenpiListObject.is_through = 1;
-                shenpiListObject.read_time = DateTime.Now;
-                
-                //软件权限表添加一条记录
-                permission _permission = new permission();
-                _permission.username = _shenpi.username;
-                _permission.software = _shenpi.software;
-                _permission.model = _shenpi.model;
-                _permission.version = _shenpi.version;
-                db.permission.Add(_permission);
-                
-                //指定状态。
-                db.Entry<shenpi>(shenpiListObject).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-
-                //更新 前端显示 -> 申请列表 和 授权记录; 
-    
-                //清空前端数据
-                dgv_send_list.Rows.Clear();
-                shenpi_read_list.Clear();
-                dgv_read_list.Rows.Clear();
-
-                //同时更新 用户管理页面 -> 用户列表数据
-                dgv_user_control.Rows.Clear();
-                list_user_control.Clear();
-
-                //重新载入 权限审批页面 -> 申请列表
-                initSendListData();
-                initReadListData();
-                //刷新 用户管理页面
-                data_user_initialize();
-                
-            }
-            //拒绝
-            if (column == 8)
-            {
-                //修改 审批表（审批状态）
-                var shenpiList = from u in db.shenpi
-                                 where u.Id == _shenpi.Id
-                                 select u;
-                var shenpiListObject = shenpiList.FirstOrDefault();
-                shenpiListObject.is_read = 1;
-                shenpiListObject.is_through = 0;
-                shenpiListObject.read_time = DateTime.Now;
-
-                db.Entry<shenpi>(shenpiListObject).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-
-                //更新 前端显示 -> 申请列表 和 授权记录
-                //清空前端数据
-                dgv_send_list.Rows.Clear();
-                shenpi_read_list.Clear();
-                dgv_read_list.Rows.Clear();
-                //重新载入 权限审批页面 -> 申请列表
-                initSendListData();
-                initReadListData();
-            }
-        }
-
-        #region 《权限审批页面》 -> 提交用户申请
+        #region 《权限申请页面》 -> 提交用户申请
         private void but_submission_Click(object sender, EventArgs e)
         {
             //审批表插入一条数据
@@ -732,6 +566,183 @@ namespace testEF
             fs.Close();
         }
         #endregion
+
+        #region 打开并显示CPU号
+        private void tp_cpu_Click(object sender, EventArgs e)
+        {
+            showCPU();
+
+            rtb_cpu.Visible = true;
+            splitContainer_cpu.Visible = true;
+        }
+        private void splitContainer1_Panel1_Click(object sender, EventArgs e)
+        {
+            showCPU();
+        }
+        public void showCPU()
+        {
+            rtb_cpu.Clear();
+            //打开文件，并显示
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "文本文件(*.txt)|*.txt|所有文件(*.*)|*.*";
+            openFileDialog.Multiselect = true;//可以选择多个文件
+            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                String filePath = openFileDialog.FileName;
+                try
+                {
+                    using (StreamReader sr = new StreamReader(filePath))
+                    {
+                        string line;
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            rtb_cpu.Text += line;
+                            rtb_cpu.AppendText(Environment.NewLine);
+                        }
+                        sr.Close();
+                    }
+                }
+                catch (Exception ee)
+                {
+                    MessageBox.Show(ee.Message);
+                }
+            }
+        }
+        #endregion
+        #endregion
+
+        #region 《权限审批》       
+        public void initPermissionReadPage() //初始化 权限审批页面
+        {
+            initSendListData();
+            initReadListData();
+        }
+        
+        List<shenpi> shenpi_read_list = new List<shenpi>(); //存储 未处理的审批数据
+        public void initSendListData()  //初始化 权限审批页面 -> 申请列表数据
+        {
+            List<shenpi> list_shenpi = db.shenpi.ToList();
+
+            //检索每条审批数据，显示未处理的数据
+            foreach (var _shenpi in list_shenpi)
+            {
+                if (_shenpi.is_read==0) {
+                    //申请列表：用户名、软件名、模块名、版本号、用途、申请时间
+                    this.dgv_send_list.Rows.Add(_shenpi.username,_shenpi.software,_shenpi.model,_shenpi.version,_shenpi.model_tips,_shenpi.use_time, _shenpi.send_time, "通过", "拒绝");
+                    shenpi_read_list.Add(_shenpi);
+                }               
+            }
+        }
+                
+        public void initReadListData()  //初始化 权限审批页面 -> 授权记录数据
+        {
+            List<shenpi> list_shenpi = db.shenpi.ToList();
+
+            //检索每条审批数据，显示未处理的数据
+            foreach (var _shenpi in list_shenpi)
+            {
+                if (_shenpi.is_read == 1)
+                {
+                    if (_shenpi.is_through==0) {
+                        //授权记录：用户名、软件名、模块名、版本号、用途、处理结果、申请时间、处理时间
+                        this.dgv_read_list.Rows.Add(_shenpi.username,_shenpi.software, _shenpi.model,_shenpi.version, _shenpi.model_tips,_shenpi.use_time,"拒绝", _shenpi.send_time,_shenpi.read_time);
+                    }
+                    if (_shenpi.is_through==1) {
+                        this.dgv_read_list.Rows.Add(_shenpi.username, _shenpi.software,_shenpi.model,_shenpi.version, _shenpi.model_tips, _shenpi.use_time, "通过", _shenpi.send_time, _shenpi.read_time);
+                    }
+                }
+            }
+        }
+
+        void DataGridViewX_SendList_CellContentClick(object sender, DataGridViewCellEventArgs e)  //申请列表 点击事件
+        {
+            int column = dgv_send_list.CurrentCell.ColumnIndex;
+            int row = dgv_send_list.CurrentCell.RowIndex;
+
+            shenpi _shenpi = new shenpi();
+            _shenpi = (shenpi)shenpi_read_list[row];
+
+            //通过
+            if (column == 7)
+            {
+                //修改 审批表（审批状态）、软件权限表（用户拥有软件权限）
+                //修改审批表
+                var shenpiList = from u in db.shenpi
+                                 where u.Id == _shenpi.Id
+                                 select u;
+                var shenpiListObject = shenpiList.FirstOrDefault();
+                shenpiListObject.is_read = 1;
+                shenpiListObject.is_through = 1;
+                shenpiListObject.read_time = DateTime.Now;
+                
+                //软件权限表添加一条记录
+                permission _permission = new permission();
+                _permission.username = _shenpi.username;
+                _permission.software = _shenpi.software;
+                _permission.model = _shenpi.model;
+                _permission.version = _shenpi.version;
+                db.permission.Add(_permission);
+                
+                //指定状态。
+                db.Entry<shenpi>(shenpiListObject).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                //更新 前端显示 -> 申请列表 和 授权记录; 
+    
+                //清空前端数据
+                dgv_send_list.Rows.Clear();
+                shenpi_read_list.Clear();
+                dgv_read_list.Rows.Clear();
+
+                //同时更新 用户管理页面 -> 用户列表数据
+                dgv_user_control.Rows.Clear();
+                list_user_control.Clear();
+
+                //重新载入 权限审批页面 -> 申请列表
+                initSendListData();
+                initReadListData();
+                //刷新 用户管理页面
+                data_user_initialize();
+                
+            }
+            //拒绝
+            if (column == 8)
+            {
+                //修改 审批表（审批状态）
+                var shenpiList = from u in db.shenpi
+                                 where u.Id == _shenpi.Id
+                                 select u;
+                var shenpiListObject = shenpiList.FirstOrDefault();
+                shenpiListObject.is_read = 1;
+                shenpiListObject.is_through = 0;
+                shenpiListObject.read_time = DateTime.Now;
+
+                db.Entry<shenpi>(shenpiListObject).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                //更新 前端显示 -> 申请列表 和 授权记录
+                //清空前端数据
+                dgv_send_list.Rows.Clear();
+                shenpi_read_list.Clear();
+                dgv_read_list.Rows.Clear();
+                //重新载入 权限审批页面 -> 申请列表
+                initSendListData();
+                initReadListData();
+            }
+        }
+
+        private void sti_read_permission_Click(object sender, EventArgs e)  //点击“权限审批”标签，重新加载数据
+        {
+            //更新 前端显示 -> 申请列表 和 授权记录
+            dgv_send_list.Rows.Clear();
+            shenpi_read_list.Clear();
+            dgv_read_list.Rows.Clear();
+
+            //重新载入 权限审批页面 -> 申请列表
+            initSendListData();
+            initReadListData();
+        }
+
         #endregion
 
         #region 《软件管理》   
@@ -739,69 +750,156 @@ namespace testEF
         public void initSoftwarePage()  //初始化 软件管理页面
         {
             label_software_control.Text = "你好，管理员“" + username + "”";
-            List<software> list_software = db.software.ToList();
-            foreach (var _software in list_software)
-            {
-                this.dgv_soft.Rows.Add(_software.name, _software.model,_software.version, "修改", "注销");
-
-                list_soft_control.Add(_software);
-            }
+            UpdateSoftware();
+            SetHeaderSoftware();
         }
 
         void DataGridViewX1_software_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            int column = dgv_soft.CurrentCell.ColumnIndex;
-            int row = dgv_soft.CurrentCell.RowIndex;
+            String _softwareName = dgv_soft.Rows[e.RowIndex].Cells["column_software"].Value.ToString();
+
+            software _software = new software();
+            _software.name = dgv_soft.Rows[e.RowIndex].Cells["column_software"].Value.ToString();
+            _software.model = dgv_soft.Rows[e.RowIndex].Cells["column_software_model"].Value.ToString();
+            _software.version = dgv_soft.Rows[e.RowIndex].Cells["column_software_version"].Value.ToString();
             
-            String _softwareName = list_soft_control[row].name;
-
-            //修改软件信息
-            if (column == 3)
+            if (e.ColumnIndex >= 0 && e.RowIndex >= 0)
             {
-                FormUpdateSoftware formUpdateSoftware = new FormUpdateSoftware(list_soft_control[row]);
-                formUpdateSoftware.Show();
-                this.Hide();
-            }
-            //移除软件信息
-            if (column == 4)
-            {
-                //从数据库《软件信息表》中删除记录
-                var softwareInfoList = from u in db.software
-                                   where u.name == _softwareName
-                                   select u;
-                software _softwareInfo = softwareInfoList.FirstOrDefault();
-                if (_softwareInfo != null)
+                if (dgv_soft.Columns[e.ColumnIndex].Name == "btnUpdate" )   //修改
                 {
-                    DialogResult result = MessageBox.Show("确定移除软件模块“" + _softwareName+"："+_softwareInfo.model +","+_softwareInfo.version+ "”？", "提示窗口", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                    if (result == DialogResult.Yes)
+                    FormUpdateSoftware formUpdateSoftware = new FormUpdateSoftware(_software);
+                    formUpdateSoftware.Show();
+                    this.Hide();
+                }
+                if (dgv_soft.Columns[e.ColumnIndex].Name == "btnRemove" )   //移除
+                {
+                    //从数据库《软件信息表》中删除记录
+                    var softwareInfoList = from u in db.software
+                                           where u.name == _softwareName
+                                           select u;
+                    software _softwareInfo = softwareInfoList.FirstOrDefault();
+                    if (_softwareInfo != null)
                     {
-                        db.software.Remove(_softwareInfo);
-                        db.SaveChanges();
-                        MessageBox.Show("已移除软件模块" + _softwareName);
+                        DialogResult result = MessageBox.Show("确定移除软件模块“" + _softwareName + "：" + _softwareInfo.model + "," + _softwareInfo.version + "”？", "提示窗口", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        if (result == DialogResult.Yes)
+                        {
+                            db.software.Remove(_softwareInfo);
+                            db.SaveChanges();
+                            MessageBox.Show("已移除软件模块" + _softwareName + "：" + _softwareInfo.model + "," + _softwareInfo.version);
 
-                        dgv_soft.Rows.Clear();
-                        list_soft_control.Clear();
-                        //刷新 软件管理页面
-                        initSoftwarePage();
+                            dgv_soft.DataSource = null;
+                            dgv_soft.Columns.Clear();
+                            UpdateSoftware();
+                            SetHeaderSoftware();
+                        }
+                        else if (result == DialogResult.No)
+                        {
+                            //不进行操作，关闭提示窗即可
+                        }
                     }
-                    else if (result == DialogResult.No)
+                    else
                     {
-                        //不进行操作，关闭提示窗即可
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("移除软件失败！");
-                }
+                        MessageBox.Show("移除软件失败！");
+                    }             
+                }        
             }
+
+            ////修改软件信息
+            //if (column == 3)
+            //{
+            //    FormUpdateSoftware formUpdateSoftware = new FormUpdateSoftware(list_soft_control[row]);
+            //    formUpdateSoftware.Show();
+            //    this.Hide();
+            //}
+            ////移除软件信息
+            //if (column == 4)
+            //{
+            //    //从数据库《软件信息表》中删除记录
+            //    var softwareInfoList = from u in db.software
+            //                       where u.name == _softwareName
+            //                       select u;
+            //    software _softwareInfo = softwareInfoList.FirstOrDefault();
+            //    if (_softwareInfo != null)
+            //    {
+            //        DialogResult result = MessageBox.Show("确定移除软件模块“" + _softwareName+"："+_softwareInfo.model +","+_softwareInfo.version+ "”？", "提示窗口", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            //        if (result == DialogResult.Yes)
+            //        {
+            //            db.software.Remove(_softwareInfo);
+            //            db.SaveChanges();
+            //            MessageBox.Show("已移除软件模块" + _softwareName);
+
+            //            dgv_soft.Rows.Clear();
+            //            list_soft_control.Clear();
+            //            //刷新 软件管理页面
+            //            initSoftwarePage();
+            //        }
+            //        else if (result == DialogResult.No)
+            //        {
+            //            //不进行操作，关闭提示窗即可
+            //        }
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("移除软件失败！");
+            //    }
+            //}
         }
-        
+
+        public void UpdateSoftware()  //更新 软件管理 信息
+        {
+            List<software> list_software = db.software.ToList();
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("column_software");
+            dt.Columns.Add("column_software_model");
+            dt.Columns.Add("column_software_version");
+
+            DataRow newRow; 
+            foreach (var _software in list_software)
+            {
+                newRow = dt.NewRow();
+                newRow["column_software"] = _software.name;
+                newRow["column_software_model"] = _software.model;
+                newRow["column_software_version"] = _software.version;
+                dt.Rows.Add(newRow);
+            }
+            this.dgv_soft.DataSource = dt;
+        }
+
+        public void SetHeaderSoftware()  //设置 软件管理 列名
+        {
+            dgv_soft.ColumnHeadersVisible = true;
+            dgv_soft.Columns[0].HeaderText = "软件名";
+            dgv_soft.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            dgv_soft.Columns[1].HeaderText = "模块名";
+            dgv_soft.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            dgv_soft.Columns[2].HeaderText = "版本号";
+            dgv_soft.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            //在datagridview中添加button按钮
+            DataGridViewButtonColumn btn = new DataGridViewButtonColumn();
+            btn.Name = "btnUpdate";
+            btn.HeaderText = "修改信息";
+            btn.DefaultCellStyle.NullValue = "修改";
+            dgv_soft.Columns.Add(btn);
+            dgv_soft.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            DataGridViewButtonColumn btn_remove = new DataGridViewButtonColumn();
+            btn_remove.Name = "btnRemove";
+            btn_remove.HeaderText = "移除软件";
+            btn_remove.DefaultCellStyle.NullValue = "移除";
+            dgv_soft.Columns.Add(btn_remove);
+            dgv_soft.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        }
+
         private void but_add_software_Click(object sender, EventArgs e)  // 软件管理页面 -> 新增软件
         {
             FormAddSoftware formAddSoftware = new FormAddSoftware();
             formAddSoftware.Show();
 
-            this.Hide();
+            this.Close();
         }
         #endregion
 
@@ -850,6 +948,16 @@ namespace testEF
             Application.Exit();
         }
         
+        private void pictureBox_close_MouseMove(object sender, MouseEventArgs e)  //右上角小叉号
+        {
+            pictureBox_close.BackColor = Color.Red;
+        }
+
+        private void pictureBox_close_MouseLeave(object sender, EventArgs e)  //右上角小叉号
+        {
+            pictureBox_close.BackColor = Color.Transparent;
+        }
+
         private void timer1_Tick(object sender, EventArgs e)  //登录成功窗口显示时间
         {
             showSuccess();

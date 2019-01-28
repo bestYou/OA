@@ -15,16 +15,10 @@ namespace testEF
         private void but_addSoft_Click(object sender, EventArgs e)
         {
             addSoftware();
-
-            FormMain formMain = new FormMain("softwareControlPage");
-            formMain.Show();
-
-            this.Hide();
         }
 
         public void addSoftware()
         {
-
             if (tb_new_soft.Text.Trim() != "" && tb_new_model.Text.Trim() != "" && tb_new_version.Text.Trim() != "")
             {
                 hailyEntities db = new hailyEntities();
@@ -38,7 +32,7 @@ namespace testEF
                 db.SaveChanges();
                 MessageBox.Show("软件添加成功！");
 
-                FormMain formMain = new FormMain("userControlPage");
+                FormMain formMain = new FormMain("softwareControlPage");
                 formMain.Show();
 
                 this.Close();
@@ -55,7 +49,6 @@ namespace testEF
             {
                 MessageBox.Show("请输入版本号！", "缺少参数", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
         }
 
         private void but_cancel_Click(object sender, EventArgs e)
@@ -65,7 +58,6 @@ namespace testEF
 
             this.Hide();
         }
-
 
         #region 无边框移动窗口
         //无边框移动窗口
